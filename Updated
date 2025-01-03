@@ -1,0 +1,249 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_SIZE 100
+
+// Structure to store patient details
+struct Patient {
+    int id;
+    char name[50];
+    int age;
+    char gender[10];
+    char contact[20];
+};
+struct Doctor {
+    int did;
+    char dname[50];
+    int dage;
+    char dgender[10];
+    char dcontact[20];
+};
+
+// Function to add a new patient
+void addPatient(struct Patient patients[], int *patientCount) {
+    struct Patient newPatient;
+    newPatient.id = (*patientCount) + 1;
+
+    printf("Enter patient name: ");
+    scanf("%s", newPatient.name);
+
+    printf("Enter patient age: ");
+    scanf("%d", &newPatient.age);
+
+    printf("Enter patient gender: ");
+    scanf("%s", newPatient.gender);
+
+    printf("Enter patient contact: ");
+    scanf("%s", newPatient.contact);
+
+    patients[*patientCount] = newPatient;
+    (*patientCount)++;
+
+    printf("\nPatient added successfully!\n-----------------------\n\n");
+}
+
+// Function to display all patients
+void displayPatients(struct Patient patients[], int patientCount)
+{
+    printf("\nPATIENT DETAILS:\n\n");
+    printf("%-5s %-20s %-10s %-10s %-5s\n","ID","NAME","AGE","GENDER","CONTACT");
+    printf("------------------------------------------------------------------\n");
+    for (int i = 0; i < patientCount; i++)
+    {
+        printf("%-5d %-20s %-10d %-10s %-5s\n\n",patients[i].id,patients[i].name,patients[i].age,patients[i].gender,patients[i].contact);
+    }
+}
+
+// Function to delete a patient by ID
+void deletePatient(struct Patient patients[], int *patientCount, int id) {
+    int found = 0;
+    for (int i = 0; i < *patientCount; i++) //To search id in whole loop
+    {
+        if (patients[i].id == id)
+        {
+            found = 1;
+            for (int j = i; j < (*patientCount) - 1; j++)
+            {
+                patients[j] = patients[j + 1];
+            }
+            (*patientCount)--;
+            printf("\nPatient with ID %d deleted successfully!\n-----------------------\n\n", id);
+            break;
+        }
+    }
+    if (!found) {
+        printf("\nPatient with ID %d not found.\n\n", id);
+    }
+}
+
+// Function to update a patient by ID
+void updatePatient(struct Patient patients[], int patientCount, int id) {
+    int found = 0;
+    for (int i = 0; i < patientCount; i++)
+    {
+        if (patients[i].id == id)
+        {
+            found = 1;
+            printf("Enter new name (current:%s): ",patients[i].name);
+            scanf("%s", patients[i].name);
+            printf("Enter new age (current:%d): ",patients[i].age);
+            scanf("%d", &patients[i].age);
+            printf("Enter new gender (current:%s): ",patients[i].gender);
+            scanf("%s", patients[i].gender);
+            printf("Enter new contact (current:%s): ",patients[i].contact);
+            scanf("%s", patients[i].contact);
+            printf("Patient with ID %d updated successfully!\n-----------------------\n\n", id);
+            break;
+        }
+    }
+    if (!found) {
+        printf("\nPatient with ID %d not found.\n", id);
+    }
+}
+
+// Function to add a new Doctor
+void addDoctor(struct Doctor doctors[], int *doctorCount) {
+    struct Doctor newDoctor;
+    newDoctor.did = (*doctorCount) + 1;
+
+    printf("Enter Doctor name: ");
+    scanf("%s", newDoctor.dname);
+
+    printf("Enter Doctor age: ");
+    scanf("%d", &newDoctor.dage);
+
+    printf("Enter Doctor gender: ");
+    scanf("%s", newDoctor.dgender);
+
+    printf("Enter Doctor contact: ");
+    scanf("%s", newDoctor.dcontact);
+
+    doctors[*doctorCount] = newDoctor;
+    (*doctorCount)++;
+
+    printf("\nDoctor added successfully!\n-----------------------\n\n");
+}
+
+// Function to display all Doctors
+void displayDoctors(struct Doctor doctors[], int doctorCount)
+{
+    printf("\nDOCTOR DETAILS:\n\n");
+    printf("%-5s %-20s %-10s %-10s %-5s\n","ID","NAME","AGE","GENDER","CONTACT");
+    printf("------------------------------------------------------------------\n");
+    for (int i = 0; i < doctorCount; i++)
+    {
+        printf("%-5d %-20s %-10d %-10s %-5s\n\n",doctors[i].did,doctors[i].dname,doctors[i].dage,doctors[i].dgender,doctors[i].dcontact);
+    }
+}
+
+// Function to delete a Doctor by ID
+void deleteDoctor(struct Doctor doctors[], int *doctorCount, int did) {
+    int found = 0;
+    for (int i = 0; i < *doctorCount; i++) //To search did in whole loop
+    {
+        if (doctors[i].did == did)
+        {
+            found = 1;
+            for (int j = i; j < (*doctorCount) - 1; j++)
+            {
+                doctors[j] = doctors[j + 1];
+            }
+            (*doctorCount)--;
+            printf("\nDoctor with ID %d deleted successfully!\n-----------------------\n\n", did);
+            break;
+        }
+    }
+    if (!found) {
+        printf("\nDoctor with ID %d not found.\n\n", did);
+    }
+}
+
+// Function to update a Doctor by ID
+void updateDoctor(struct Doctor doctors[], int doctorCount, int did) {
+    int found = 0;
+    for (int i = 0; i < doctorCount; i++)
+    {
+        if (doctors[i].did == did)
+        {
+            found = 1;
+            printf("Enter new name (current:%s): ",doctors[i].dname);
+            scanf("%s", doctors[i].dname);
+            printf("Enter new age (current:%d): ",doctors[i].dage);
+            scanf("%d", &doctors[i].dage);
+            printf("Enter new gender (current:%s): ",doctors[i].dgender);
+            scanf("%s", doctors[i].dgender);
+            printf("Enter new contact (current:%s): ",doctors[i].dcontact);
+            scanf("%s", doctors[i].dcontact);
+            printf("Doctor with ID %d updated successfully!\n-----------------------\n\n", did);
+            break;
+        }
+    }
+    if (!found) {
+        printf("\nDoctor with ID %d not found.\n", did);
+    }
+}
+
+int main() {
+    struct Patient patients[MAX_SIZE];
+    struct Doctor doctors[MAX_SIZE];
+    int patientCount = 0,doctorCount=0;
+    int choice;
+    int id,did;
+
+    do {
+        printf("\t\t\t\tHOSPITAL MANAGEMENT SYSTEM\n\n");
+        printf("1. Add Patient Details\n");
+        printf("2. Display Patients\n");
+        printf("3. Delete Patient Details\n");
+        printf("4. Update Patient Details\n");
+        printf("5. Add Doctor Details\n");
+        printf("6. Display Doctors\n");
+        printf("7. Delete Doctor Details\n");
+        printf("8. Update Doctor Details\n");
+        printf("9. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                addPatient(patients, &patientCount);
+                break;
+            case 2:
+                displayPatients(patients, patientCount);
+                break;
+            case 3:
+                printf("Enter patient ID to delete: ");
+                scanf("%d", &id);
+                deletePatient(patients, &patientCount, id);
+                break;
+            case 4:
+                printf("Enter patient ID to update: ");
+                scanf("%d", &id);
+                updatePatient(patients, patientCount, id);
+                break;
+            case 5:
+                addDoctor(doctors, &doctorCount);
+                break;
+            case 6:
+                displayDoctors(doctors, doctorCount);
+                break;
+            case 7:
+                printf("Enter Doctor ID to delete: ");
+                scanf("%d", &did);
+                deleteDoctor(doctors, &doctorCount, did);
+                break;
+            case 8:
+                printf("Enter Doctor ID to update: ");
+                scanf("%d", &did);
+                updateDoctor(doctors, doctorCount, did);
+                break;
+            case 9:
+                printf("Exiting...\n");
+                break;
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    } while (choice != 9);
+
+    return 0;
+}
