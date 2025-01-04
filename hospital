@@ -1,0 +1,92 @@
+#include<stdio.h>
+struct patient{
+    int id;
+    char patientName[50];
+    char patientAddress[50];
+    char disease[50];
+}p;
+void appointment()
+{
+	int id;
+	printf("enter doctor id:");
+	scanf("%d",&id);
+    printf("Enter Patient name: ");
+    fgets(p.patientName,50,stdin);
+    printf("Enter Patient Address: ");
+    fgets(p.patientAddress,50,stdin);
+    printf("Enter Patient Disease: ");
+    fgets(p.disease,50,stdin);
+    printf("\nPatient Added Successfully"); 
+}
+void display(){
+
+int id;
+  printf("doctor id: %d",id);
+	printf("patient name: %s",p.patientName);
+	printf("diesase :%s",p.disease);
+	printf("address :%s",p.patientAddress);
+	printf("\nPatient Added Successfully"); 
+	
+}
+void update()
+{
+	
+}
+
+int main()
+{
+ int appointment();
+int display();
+int update();
+int cancel();
+
+	printf("1.cardiology\n");
+	printf("2.dermatologist\n");
+	printf("3.dentist\n");
+	int disease;
+	printf("enter your problem\n");
+	scanf("%d",&disease);
+    switch(disease)
+{
+	case 1:
+		printf("GKNMH\n");
+		printf("Dr.K.A.Sambasivam\n");
+		printf("doctor id - 1");
+		break;
+	case 2:
+		printf("PSG\n");
+		printf("Dr.Shanmugasekar\n");
+		printf("doctor id - 2");
+		
+		break;
+	case 3:
+		printf("NG\n");
+		printf("Dr.M.M.Arun Shivaraman\n");
+		printf("doctor id - 3\n");
+
+		break;
+}
+int process;
+do{
+
+printf("1.Appointment\n");
+printf("2.Display\n");
+printf("3.update\n");
+printf("4.cancel\n");
+printf("Enter your process\n");
+scanf("%d",&process);
+  switch(process)
+{	
+  case 1 :
+	appointment();
+	break;
+  case 2 :
+	display();
+	break;
+  		
+}
+}while(process ==1 || process == 2);
+}
+
+
+
