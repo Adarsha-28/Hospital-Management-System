@@ -25,6 +25,13 @@ struct Doctor {
     char dgender[10];
     char dcontact[20];
 };
+//Structure to store appointment details
+struct Appointment{
+	int app_id;
+	int P_id;
+	int D_id;
+	char date[10];
+};
 
 // Function to add a new patient
 void addPatient(struct Patient patients[], int *patientCount) {
@@ -238,10 +245,61 @@ void searchDoctor(struct Doctor doctors[], int doctorCount)
         printf("DOCTOR NOT FOUND...!!!\n\n");
 }
 
+//appointment scheduling
+void scheduleAppointment(struct Appointment appointments[],int *appointmentCount)
+{
+	appointments[*appointmentCount].app_id= (*appointmentCount)+1;
+	printf("\nEnter Patient's ID : ");
+	scanf("%d",&appointments[*appointmentCount].P_id);
+	//printf("Enter Appointment ID: ");
+    //ssanf("%d", &appointments[appointmentCount].id);
+    printf("Enter Doctor ID: ");
+    scanf("%d", &appointments[*appointmentCount].D_id);
+    printf("Enter Date (DD/MM/YYYY): ");
+    scanf("%s", appointments[*appointmentCount].date);
+    getchar();
+    (*appointmentCount)++;  
+    printf("\nAppointment scheduled successfully...!!!\n\n");
+}
+//view appointment
+void viewAppointment(struct Appointment appointments[],int appointmentCount)
+{
+	int i;
+	printf("\nAPPOINTMENTS:\n\n");
+    printf("%-18s %-15s %-15s %-15s\n","PPOINTMENT_ID","PATIENT's ID","DOCTOR's ID","DATE");
+    printf("-------------------------------------------------------------\n");
+    for(i=0;i<appointmentCount;i++)
+    	printf("%-18d %-15d %-15d %-15s\n\n",appointments[i].app_id,appointments[i].P_id,appointments[i].D_id,appointments[i].date);
+}
+//cancel appointment
+void cancelAppointment(struct Appointment appointments[],int *appointmentCount)
+{
+	int cancel_id,i,j,found;
+	printf("\nEnter Appointment id : ");
+	scanf("%d",&cancel_id);
+	for(i=0 ; i < *appointmentCount ;i++)
+    {
+        if(cancel_id==appointments[i].app_id)
+        {
+            found=1;
+            for(j=i ; j<*appointmentCount ; j++)
+            {
+                appointments[j].app_id=appointments[j+1].app_id;
+            }
+        }
+    }
+    (*appointmentCount)--;
+    
+    if(found == 1)
+        printf("\nAPPOINTMENT CANCELED SUCCESSFULLY...!!!\n\n");
+    else
+        printf("\nAPPOINTMENT NOT FOUND...!!!\n\n");
+}
 int main() {
     struct Patient patients[MAX_SIZE];
     struct Doctor doctors[MAX_SIZE];
-    int patientCount = 0,doctorCount=0;
+    struct Appointment appointments[MAX_SIZE];
+    int patientCount = 0,doctorCount=0,appointmentCount=0;
     int choice,option;
     int id,did;
 
@@ -250,8 +308,9 @@ int main() {
         printf("Choose any one to fill details:\n");
         printf("1. Patient Details\n");
         printf("2. Doctor Details\n");
-        printf("3. Exit\n\n");
-        printf("Enter your choice: ");
+        printf("3. Appointment Details\n");
+        printf("4. Exit\n\n");
+        printf("Enter your choice : ");
         scanf("%d", &choice);
 
         if(choice==1)
@@ -261,7 +320,7 @@ int main() {
             printf("3. Delete Patient Details\n");
             printf("4. Update Patient Details\n");
             printf("5. Search Patient Details\n\n");
-            printf("Choose any option:");
+            printf("Choose any option : ");
             scanf("%d",&option);
             switch (option) {
             case 1:
@@ -284,7 +343,7 @@ int main() {
                 searchPatient(patients, patientCount);
                 break;
             default:
-                printf("Invalid choice. Please try again.\n");
+                printf("\nInvalid choice. Please try again.\n");
             }
         }
         else if(choice==2)
@@ -294,7 +353,7 @@ int main() {
             printf("3. Delete Doctor Details\n");
             printf("4. Update Doctor Details\n");
             printf("5. Search Doctor Details\n\n");
-            printf("Choose any option:");
+            printf("Choose any option : ");
             scanf("%d",&option);
             switch (option) {
             case 1:
@@ -317,12 +376,34 @@ int main() {
                 searchDoctor(doctors, doctorCount);
                 break;
             default:
-                printf("Invalid choice. Please try again.\n");
+                printf("\nInvalid choice. Please try again.\n");
             }
         }
         else if(choice==3)
         {
+        	printf("\n1.Schedule Appointment\n");
+        	printf("2.View Appointment\n");
+        	printf("3.Cancel Appointment\n");
+        	printf("Choose any option : ");
+        	scanf("%d",&option);
+        	switch(option)
+        	{
+        		case 1:
+        			scheduleAppointment(appointments,&appointmentCount);
+        			break;
+        		case 2:
+        			viewAppointment(appointments,appointmentCount);
+        			break;
+        		case 3:
+        			cancelAppointment(appointments,&appointmentCount);
+        			break;
+        		default:
+					printf("\nInvalid choice. Please try again.\n");	
+			}
+		}
+        else if(choice==4)
+        {
             printf("Exiting...\n\n");
         }
-    } while(choice != 3);
+    } while(choice != 4);
 }
