@@ -44,7 +44,7 @@ struct Appointment{
 void addPatient(struct Patient patients[], int *patientCount) {
 	if(*patientCount == MAX_SIZE)
     {
-        printf("\nINVENTORY IS FULL...!!!");
+        printf("\nSTORAGE IS FULL...!!!");
     }
     struct Patient newPatient;
     newPatient.id = (*patientCount) + 1;
@@ -182,7 +182,7 @@ void searchPatient(struct Patient patients[], int patientCount)
 void addDoctor(struct Doctor doctors[], int *doctorCount) {
 	if(*doctorCount == MAX_SIZE)
     {
-        printf("\nINVENTORY IS FULL...!!!");
+        printf("\nSTORAGE IS FULL...!!!");
     }
     struct Doctor newDoctor;
     newDoctor.did = (*doctorCount) + 1;
