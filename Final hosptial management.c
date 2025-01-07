@@ -8,6 +8,7 @@
 #include <string.h>
 
 #define MAX_SIZE 100
+#define MAX_APPOINTMENT 50
 
 // Structure to store patient details
 struct Patient {
@@ -317,9 +318,9 @@ void searchDoctor(struct Doctor doctors[], int doctorCount)
 //appointment scheduling
 void scheduleAppointment(struct Appointment appointments[],int *appointmentCount)
 {
-	if(*appointmentCount == MAX_SIZE)
+	if(*appointmentCount == MAX_APPOINTMENT)
     {
-        printf("\nINVENTORY IS FULL...!!!");
+        printf("\nAPPOINTMENT NOT AVAILABLE...!!!\n");
     }
 	appointments[*appointmentCount].app_id= (*appointmentCount)+1;
 	printf("\nEnter Patient's ID : ");
@@ -330,7 +331,7 @@ void scheduleAppointment(struct Appointment appointments[],int *appointmentCount
     scanf("%s", appointments[*appointmentCount].date);
     getchar();
     (*appointmentCount)++;  
-    printf("\nAppointment scheduled successfully...!!!\n\n");
+    printf("\nAPPOINTMENT SCHEDULED SUCCESSFULLY...!!!\n\n");
 }
 
 //view appointment
@@ -395,7 +396,9 @@ void bill(struct Patient patients[], int patientCount, int id)
             printf("Enter Service Charges: ");
             scanf("%d", &patients[i].serviceCharges);
             printf("\t\t\t\tBILL SUMMARY\n\n");
-            printf("------------------------------------------------------------------\n\n");
+            printf("------------------------------------------------------------------\n");
+            printf("%-5s %-20s %-10s %-10s %-5s\n","ID","NAME","AGE","GENDER","CONTACT");
+            printf("------------------------------------------------------------------\n");
             printf("%-5d %-20s %-10d %-10s %-5s\n\n",patients[i].id,patients[i].name,patients[i].age,patients[i].gender,patients[i].contact);
             printf("------------------------------------------------------------------\n\n");
             printf("Room Charges            %d\n",patients[i].roomCharges);
@@ -408,13 +411,13 @@ void bill(struct Patient patients[], int patientCount, int id)
         }
     }
     if(!found)
-    printf("PATIENT ID NOT FOUND...!!!\n\n");
+    printf("\nPATIENT ID NOT FOUND...!!!\n\n");
 }
 
 int main() {
     struct Patient patients[MAX_SIZE];
     struct Doctor doctors[MAX_SIZE];
-    struct Appointment appointments[MAX_SIZE];
+    struct Appointment appointments[MAX_APPOINTMENT];
     int patientCount = 0,doctorCount=0,appointmentCount=0;
     int choice,option;
     int id,did;
@@ -521,7 +524,7 @@ int main() {
 		}
         else if(choice==4)
         {
-            printf("Enter patient ID to Create Bill: ");
+            printf("\nEnter patient ID to Create Bill: ");
             scanf("%d", &id);
             bill(patients, patientCount, id);
         }
