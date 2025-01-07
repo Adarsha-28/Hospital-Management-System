@@ -46,24 +46,22 @@ void addPatient(struct Patient patients[], int *patientCount) {
     {
         printf("\nSTORAGE IS FULL...!!!");
     }
-    struct Patient newPatient;
-    newPatient.id = (*patientCount) + 1;
+   
+    patients[*patientCount].id = (*patientCount) + 1;
 
     printf("\nEnter patient name: ");
-    scanf("%s", newPatient.name);
+    scanf("%s", patients[*patientCount].name);
     getchar();
 
     printf("Enter patient age: ");
-    scanf("%d", &newPatient.age);
+    scanf("%d",patients[*patientCount].age);
 
     printf("Enter patient gender: ");
-    scanf("%s", newPatient.gender);
+    scanf("%s", patients[*patientCount].gender);
     getchar();
 
     printf("Enter patient contact: ");
-    scanf("%s", newPatient.contact);
-
-    patients[*patientCount] = newPatient;
+    scanf("%s", patients[*patientCount].contact);
     (*patientCount)++;
     printf("\nPATIENT ADDED SUCCESSFULLY!\n---------------------------\n\n");
 }
